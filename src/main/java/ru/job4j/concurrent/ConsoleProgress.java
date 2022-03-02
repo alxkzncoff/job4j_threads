@@ -7,11 +7,11 @@ public class ConsoleProgress implements Runnable {
         String[] status = {"-", "\\", "|", "/"};
         int index = 0;
         while (!Thread.currentThread().isInterrupted()) {
-            System.out.print("\r load: " + status[index++]);
-            if (index == status.length) {
-                index = 0;
-            }
             try {
+                System.out.print("\r load: " + status[index++]);
+                if (index == status.length) {
+                    index = 0;
+                }
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
