@@ -5,6 +5,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 
+/**
+ * Пример работы с Threads.
+ * Программа скачивает файл из сети с ограничением по скорости.
+ * @author Aleksandr Kuznetsov.
+ * @version 1.0
+ */
+
 public class Wget implements Runnable {
     private final String url;
     private final int speed;

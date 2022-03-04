@@ -1,5 +1,12 @@
 package ru.job4j.concurrent;
 
+/**
+ * Пример работы с Threads.
+ * Класс симулирует процесс загрузки. Симуляция осуществляется в отдельной нити.
+ * @author Aleksandr Kuznetsov.
+ * @version 1.0
+ */
+
 public class Wget {
     public static void main(String[] args) {
         Thread thread = new Thread(

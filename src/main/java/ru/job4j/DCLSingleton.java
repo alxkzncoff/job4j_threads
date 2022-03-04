@@ -1,5 +1,11 @@
 package ru.job4j;
 
+/**
+ * Пример атомарности.
+ * @author Aleksandr Kuznetsov.
+ * @version 1.0
+ */
+
 public final class DCLSingleton {
 
     private static volatile DCLSingleton inst;

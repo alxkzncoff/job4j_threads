@@ -1,5 +1,12 @@
 package ru.job4j.concurrent;
 
+/**
+ * Пример работы с Threads.
+ * Прерывание нитей.
+ * @author Aleksandr Kuznetsov.
+ * @version 1.0
+ */
+
 public class ConsoleProgress implements Runnable {
 
     @Override
