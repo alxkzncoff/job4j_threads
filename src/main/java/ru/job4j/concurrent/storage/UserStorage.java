@@ -30,12 +30,7 @@ public class UserStorage {
      * @return True если пользователь успешно добавлен, иначе False.
      */
     public synchronized boolean add(User user) {
-        boolean rsl = false;
-        if (findById(user.getId()).isEmpty()) {
-            users.put(user.getId(), user);
-            rsl = true;
-        }
-        return rsl;
+        return users.putIfAbsent(user.getId(), user) == null;
     }
 
     /**
@@ -45,12 +40,7 @@ public class UserStorage {
      * @return True если данные успешно обновлены, иначе False.
      */
     public synchronized boolean update(User user) {
-        boolean rsl = false;
-        if (findById(user.getId()).isPresent()) {
-            users.replace(user.getId(), user);
-            rsl = true;
-        }
-        return rsl;
+        return users.replace(user.getId(), user) != null;
     }
 
     /**
@@ -60,12 +50,7 @@ public class UserStorage {
      * @return True если пользователь успешно удален, иначе False.
      */
     public synchronized boolean delete(User user) {
-        boolean rsl = false;
-        if (findById(user.getId()).isPresent()) {
-            users.remove(user.getId());
-            rsl = true;
-        }
-        return rsl;
+        return users.remove(user.getId(), user);
     }
 
     private synchronized Optional<User> findById(int id) {
