@@ -37,12 +37,8 @@ public class ThreadPool {
      * Метод добавляет задачи в блокирующую очередь tasks.
      * @param job задача.
      */
-    public void work(Runnable job) {
-        try {
-            tasks.offer(job);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
+    public void work(Runnable job) throws InterruptedException {
+        tasks.offer(job);
     }
 
     /**
