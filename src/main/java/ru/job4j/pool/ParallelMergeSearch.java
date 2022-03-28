@@ -23,32 +23,32 @@ public class ParallelMergeSearch<V> extends RecursiveTask<Integer> {
         this.to = to;
     }
 
+    private int searchIndex() {
+        int result = -1;
+        for (int i = from; i < to; i++) {
+            if (array[i].equals(target)) {
+                result = i;
+                break;
+            }
+        }
+        return result;
+    }
+
     @Override
     protected Integer compute() {
-        if (array.length <= 10) {
-            for (int i = 0; i < array.length; i++) {
-                if (array[i].equals(target)) {
-                    return i;
-                }
-            }
+        if (to - from <= 10) {
+            return searchIndex();
         }
         int mid = (from + to) / 2;
         ParallelMergeSearch<V> leftSearch = new ParallelMergeSearch<>(array, target, from, mid);
         ParallelMergeSearch<V> rightSearch = new ParallelMergeSearch<>(array, target, mid + 1, to);
         leftSearch.fork();
         rightSearch.fork();
-        Integer left = leftSearch.join();
-        Integer right = rightSearch.join();
-        if (left != null) {
-            return left;
-        } else if (right != null) {
-            return right;
-        }
-        return null;
+        return Math.max(leftSearch.join(), rightSearch.join());
     }
 
-    public Integer search(V[] array, V target) {
+    public static <V> Integer search(V[] array, V target) {
         ForkJoinPool forkJoinPool = new ForkJoinPool();
-        return forkJoinPool.invoke(new ParallelMergeSearch<>(array, target, 0, array.length));
+        return forkJoinPool.invoke(new ParallelMergeSearch<>(array, target, 0, array.length - 1));
     }
 }
